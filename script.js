@@ -460,8 +460,7 @@ async function extraerTexto() {
       }
 
       if (texto && texto.length > 0) {
-        const encabezado = `${"=".repeat(50)}\n  ${t("paginaEncabezado", pagina)}\n${"=".repeat(50)}\n`;
-        bloques.push(encabezado + texto);
+        bloques.push(texto);
       } else {
         const tipoFiltro = etiqueta
           ? `${t("tipoEtiqueta")} <${etiqueta}>`
