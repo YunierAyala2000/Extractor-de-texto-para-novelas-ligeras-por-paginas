@@ -4,8 +4,8 @@ function iniciarTour() {
 
   const tour = driver({
     showProgress: true,
-    nextBtnText: "Siguiente →",
-    prevBtnText: "← Anterior",
+    nextBtnText: "Siguiente",
+    prevBtnText: "Anterior",
     doneBtnText: "¡Listo!",
     progressText: "Paso {{current}} de {{total}}",
     steps: [
