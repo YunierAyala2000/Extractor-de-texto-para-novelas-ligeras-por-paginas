@@ -378,7 +378,6 @@ async function extraerTexto() {
     return;
   }
 
-  // Validar URL básica
   try {
     new URL(url);
   } catch {
@@ -410,9 +409,6 @@ async function extraerTexto() {
     for (let pagina = 1; pagina <= numPaginas; pagina++) {
       actualizarProgreso(pagina, numPaginas);
 
-      // ── Estrategia de extracción ─────────────────────────────────────────────
-      // Si hay filtro CSS: proxy HTML primero (aplica el filtro y excluye la nav).
-      // Sin filtro: Jina primero (mejor para bypasear Cloudflare).
       let textoJina = null;
       let doc = null;
       let texto = "";
