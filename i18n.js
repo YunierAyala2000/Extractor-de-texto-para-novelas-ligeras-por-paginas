@@ -1,8 +1,8 @@
 const LANG = {
   es: {
     // Página
-    appTitle: "Extractor de texto por páginas",
-    h1: "Extractor de texto",
+    appTitle: "Extractor de texto web por páginas",
+    h1: "Extractor de texto web",
     subtitle: "Extrae texto de múltiples páginas automáticamente",
     // Header
     btnTourLabel: "✦ Guía",
