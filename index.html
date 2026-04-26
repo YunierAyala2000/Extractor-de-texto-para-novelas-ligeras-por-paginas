@@ -45,28 +45,34 @@
         <section id="card-filtro" class="card">
           <h2>Filtro de contenido</h2>
 
-          <label for="etiquetaInput">Etiqueta HTML</label>
-          <input
-            type="text"
-            id="etiquetaInput"
-            placeholder="p, h1, li, article…"
-            value="p"
-          />
-
-          <label for="claseInput">Clase CSS</label>
-          <input
-            type="text"
-            id="claseInput"
-            placeholder="article-body, post-title…"
-            value="dv-post-article"
-          />
-
-          <label for="selectorInput">Selector CSS avanzado</label>
-          <input
-            type="text"
-            id="selectorInput"
-            placeholder="#id, .clase, main > p"
-          />
+          <div class="filtro-fila">
+            <div class="filtro-campo">
+              <label for="etiquetaInput">Etiqueta HTML</label>
+              <input
+                type="text"
+                id="etiquetaInput"
+                placeholder="p, h1…"
+                value="p"
+              />
+            </div>
+            <div class="filtro-campo">
+              <label for="claseInput">Clase CSS</label>
+              <input
+                type="text"
+                id="claseInput"
+                placeholder="article-body…"
+                value="dv-post-article"
+              />
+            </div>
+            <div class="filtro-campo">
+              <label for="selectorInput">Selector avanzado</label>
+              <input
+                type="text"
+                id="selectorInput"
+                placeholder="#id, .clase…"
+              />
+            </div>
+          </div>
 
           <p class="hint">
             Solo se aplica el primero que esté relleno. Si todos están vacíos
@@ -77,24 +83,32 @@
         <section id="card-paginacion" class="card">
           <h2>Paginación</h2>
 
-          <label for="numPaginasInput">Número de páginas a extraer</label>
-          <input
-            type="number"
-            id="numPaginasInput"
+          <div class="filtro-fila">
+            <div class="filtro-campo">
+              <label for="numPaginasInput">Número de páginas a extraer</label>
+              <input
+                type="number"
+                id="numPaginasInput"
             min="1"
             max="100"
             value="3"
           />
+            </div>
 
-          <label for="siguienteSelector">
-            Clase CSS o selector del enlace "Siguiente"
-            <span class="badge">opcional</span>
-          </label>
-          <input
-            type="text"
-            id="siguienteSelector"
-            placeholder="next-page  /  a.next  /  text:Siguiente"
-          />
+             <div class="filtro-campo">
+              <label for="siguienteSelector">
+                          Clase CSS o enlace "Siguiente"
+                          <span class="badge">opcional</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="siguienteSelector"
+                          placeholder="next-page  /  a.next  /  text:Siguiente"
+                        />
+             </div>
+          </div>
+
+         
           <p class="hint">
             Acepta una <strong>clase CSS</strong> simple (ej: <code>next-page</code>),
             un <strong>selector CSS</strong> completo (ej: <code>.pagination a.next</code>)

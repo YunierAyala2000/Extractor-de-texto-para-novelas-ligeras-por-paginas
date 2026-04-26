@@ -258,6 +258,24 @@ input::placeholder {
   font-weight: 500;
 }
 
+/* ── Filtros en fila ─────────────────────────────────────────────────────────── */
+.filtro-fila {
+  display: flex;
+  gap: 8px;
+}
+
+.filtro-campo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.filtro-campo label {
+  margin-top: 0;
+}
+
 /* ── Botón Extraer ──────────────────────────────────────────────────────────── */
 #btnExtraer {
   background: var(--accent);
