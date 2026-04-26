@@ -59,8 +59,8 @@ const LANG = {
     errorFiltro: (p, tipo, url) =>
       `[Página ${p}: no se encontró contenido con el filtro ${tipo}]\nURL: ${url}`,
     // Tour
-    tourNext: "Siguiente →",
-    tourPrev: "← Anterior",
+    tourNext: "Siguiente",
+    tourPrev: "Anterior",
     tourDone: "¡Listo!",
     tourProgress: "Paso {{current}} de {{total}}",
     tour: [
@@ -194,8 +194,8 @@ const LANG = {
     errorFiltro: (p, tipo, url) =>
       `[Page ${p}: no content found with filter ${tipo}]\nURL: ${url}`,
     // Tour
-    tourNext: "Next →",
-    tourPrev: "← Back",
+    tourNext: "Next",
+    tourPrev: "Back",
     tourDone: "Done!",
     tourProgress: "Step {{current}} of {{total}}",
     tour: [
