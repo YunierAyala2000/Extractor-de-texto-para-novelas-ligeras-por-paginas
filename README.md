@@ -15,6 +15,7 @@ Herramienta web para extraer el texto de novelas ligeras u otras páginas web de
 - **Resultado en tiempo real** — el texto aparece en el área de resultado página a página mientras se extrae.
 - **Copiar y descargar** — copia al portapapeles o descarga el resultado como `.txt`.
 - **Modo claro / oscuro** — con persistencia en `localStorage`.
+- **Multiidioma (ES / EN)** — interfaz disponible en español e inglés, con cambio instantáneo desde el header y persistencia en `localStorage`.
 - **Guía interactiva** — tour paso a paso con [Driver.js](https://driverjs.com/) accesible desde el botón ✦ Guía.
 
 ---
@@ -54,6 +55,7 @@ Déjalo vacío para que la app lo detecte automáticamente.
 ```
 ├── index.html       # Interfaz principal
 ├── script.js        # Lógica de extracción y proxies
+├── i18n.js          # Sistema de internacionalización (ES / EN)
 ├── GuiaDriver.js    # Tour interactivo (Driver.js)
 └── styles.css       # Estilos (tema oscuro y claro)
 ```
@@ -68,6 +70,7 @@ Déjalo vacío para que la app lo detecte automáticamente.
 | [Jina AI Reader](https://jina.ai/)                              | Extracción de texto, bypassa Cloudflare |
 | Proxies CORS públicos                                           | Fallback para obtener HTML              |
 | [Driver.js](https://driverjs.com/)                              | Guía interactiva                        |
+| i18n.js (custom)                                                | Internacionalización ES / EN            |
 | [Inter](https://fonts.google.com/specimen/Inter) (Google Fonts) | Tipografía                              |
 
 ---
