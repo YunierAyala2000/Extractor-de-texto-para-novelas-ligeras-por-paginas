@@ -410,38 +410,64 @@ async function extraerTexto() {
     for (let pagina = 1; pagina <= numPaginas; pagina++) {
       actualizarProgreso(pagina, numPaginas);
 
-      // ── Estrategia 1: Jina AI Reader (bypassa protección de bots) ──
+      // ── Estrategia de extracción ─────────────────────────────────────────────
+      // Si hay filtro CSS: proxy HTML primero (aplica el filtro y excluye la nav).
+      // Sin filtro: Jina primero (mejor para bypasear Cloudflare).
       let textoJina = null;
       let doc = null;
       let texto = "";
+      const hayFiltro = etiqueta || clase || selector;
 
-      textoJina = await fetchConJina(urlActual);
-
-      if (textoJina) {
-        // Jina devuelve texto limpio directamente
-        texto = textoJina;
-        console.info(`[jina] Página ${pagina} obtenida correctamente.`);
-      } else {
-        // ── Estrategia 2: Proxies CORS + parseo HTML ──
-        console.info(`[jina] Falló, intentando proxies CORS...`);
-        let html;
+      if (hayFiltro) {
+        // Con filtro: proxy HTML → extracción filtrada
         try {
-          html = await fetchConProxy(urlActual);
-        } catch (err) {
-          const mensaje = `No se pudo obtener la página ${pagina}.\nJina y todos los proxies fallaron.\n\n${err.message}`;
-          alert(mensaje);
+          const html = await fetchConProxy(urlActual);
+          const parser = new DOMParser();
+          doc = parser.parseFromString(html, "text/html");
+          texto = extraerTextoDePagina(doc, etiqueta, clase, selector) || "";
+          if (texto)
+            console.info(`[proxy] Página ${pagina} obtenida con filtro.`);
+        } catch (e) {
+          console.warn("[proxy] Falló, intentando Jina…", e.message);
+        }
+        // Fallback: Jina (sin filtro CSS, incluye nav — último recurso)
+        if (!texto) {
+          textoJina = await fetchConJina(urlActual);
+          if (textoJina) {
+            texto = textoJina;
+            console.info(`[jina] Página ${pagina} obtenida (sin filtro CSS).`);
+          }
+        }
+        if (!texto) {
+          alert(
+            `No se pudo obtener la página ${pagina}.\nTodos los proxies y Jina fallaron.`,
+          );
           break;
         }
-        const parser = new DOMParser();
-        doc = parser.parseFromString(html, "text/html");
-        texto = extraerTextoDePagina(doc, etiqueta, clase, selector) || "";
+      } else {
+        // Sin filtro: Jina primero
+        textoJina = await fetchConJina(urlActual);
+        if (textoJina) {
+          texto = textoJina;
+          console.info(`[jina] Página ${pagina} obtenida correctamente.`);
+        } else {
+          // ── Proxies CORS + parseo HTML ──
+          console.info(`[jina] Falló, intentando proxies CORS...`);
+          try {
+            const html = await fetchConProxy(urlActual);
+            const parser = new DOMParser();
+            doc = parser.parseFromString(html, "text/html");
+            texto = extraerTextoDePagina(doc, etiqueta, clase, selector) || "";
+          } catch (err) {
+            const mensaje = `No se pudo obtener la página ${pagina}.\nJina y todos los proxies fallaron.\n\n${err.message}`;
+            alert(mensaje);
+            break;
+          }
+        }
       }
 
       if (texto && texto.length > 0) {
-        const encabezado =
-          numPaginas > 1
-            ? `${"═".repeat(50)}\n  PÁGINA ${pagina} — ${urlActual}\n${"═".repeat(50)}\n`
-            : "";
+        const encabezado = `${"═".repeat(50)}\n  PÁGINA ${pagina}\n${"═".repeat(50)}\n`;
         bloques.push(encabezado + texto);
       } else {
         const tipoFiltro = etiqueta
