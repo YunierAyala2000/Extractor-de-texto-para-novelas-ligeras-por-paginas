@@ -1,22 +1,55 @@
+/* ── Reset ──────────────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* ── Tema oscuro (por defecto) ──────────────────────────────────────────────── */
 :root {
-  --bg: #0f1117;
-  --surface: #1a1d27;
-  --surface2: #22263a;
-  --border: #2e3250;
-  --accent: #4f7cff;
-  --accent-hover: #6b93ff;
-  --success: #22c55e;
-  --danger: #ef4444;
-  --text: #e2e8f0;
-  --text-muted: #8892aa;
-  --radius: 10px;
-  --font: "Inter", sans-serif;
+  --bg:           #0d0f18;
+  --surface:      #161925;
+  --surface2:     #1e2235;
+  --surface3:     #252a40;
+  --border:       #2a2f4a;
+  --border-focus: #4f7cff;
+  --accent:       #4f7cff;
+  --accent-hover: #7096ff;
+  --accent-soft:  rgba(79, 124, 255, 0.12);
+  --success:      #22c55e;
+  --text:         #e2e8f0;
+  --text-muted:   #7b87a8;
+  --text-soft:    #9aa3bc;
+  --shadow:       0 4px 24px rgba(0,0,0,0.45);
+  --shadow-sm:    0 2px 8px  rgba(0,0,0,0.3);
+  --radius:       12px;
+  --radius-sm:    8px;
+  --font:         "Inter", sans-serif;
+  --transition:   0.18s ease;
+}
+
+/* ── Tema claro ─────────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:           #f0f2f8;
+  --surface:      #ffffff;
+  --surface2:     #f5f6fb;
+  --surface3:     #eaecf5;
+  --border:       #d4d8ee;
+  --border-focus: #4f7cff;
+  --accent:       #4361ee;
+  --accent-hover: #2d4fd6;
+  --accent-soft:  rgba(67, 97, 238, 0.10);
+  --success:      #16a34a;
+  --text:         #1a1f36;
+  --text-muted:   #6b7280;
+  --text-soft:    #8b92a8;
+  --shadow:       0 4px 24px rgba(0,0,0,0.08);
+  --shadow-sm:    0 2px 8px  rgba(0,0,0,0.06);
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────────── */
+html {
+  transition: background var(--transition), color var(--transition);
 }
 
 body {
@@ -26,184 +59,251 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  line-height: 1.5;
 }
 
-/* ── Header ──────────────────────────────────── */
+/* ── Header ─────────────────────────────────────────────────────────────────── */
 header {
-  padding: 20px 28px 14px;
+  padding: 14px 24px;
   border-bottom: 1px solid var(--border);
+  background: var(--surface);
   flex-shrink: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
   gap: 12px;
 }
 
-header > div {
-  flex: 1;
+.header-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 header h1 {
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
 }
 
 header .subtitle {
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  margin-top: 3px;
+  margin-top: 1px;
 }
 
-#btnTour {
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   flex-shrink: 0;
-  background: transparent;
+}
+
+#btnTema,
+#btnTour {
+  background: var(--surface2);
   border: 1px solid var(--border);
   color: var(--text-muted);
   font-size: 0.78rem;
-  padding: 5px 12px;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-  margin-top: 2px;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
   white-space: nowrap;
+  font-family: var(--font);
 }
 
+#btnTema {
+  font-size: 1rem;
+  padding: 5px 9px;
+}
+
+#btnTema:hover,
 #btnTour:hover {
+  background: var(--accent-soft);
   border-color: var(--accent);
   color: var(--accent);
 }
 
-/* ── Layout principal ────────────────────────── */
+/* ── Layout principal ───────────────────────────────────────────────────────── */
 main.layout {
   display: flex;
   flex: 1;
   overflow: hidden;
 }
 
-/* ── Panel izquierdo — controles ─────────────── */
+/* ── Panel izquierdo — controles ────────────────────────────────────────────── */
 .panel-controls {
-  width: 30%;
+  width: 320px;
   min-width: 260px;
-  max-width: 380px;
+  max-width: 360px;
   border-right: 1px solid var(--border);
-  padding: 16px 14px;
+  padding: 20px 16px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 12px;
   flex-shrink: 0;
+  background: var(--surface);
 }
 
+/* scrollbar del panel */
+.panel-controls::-webkit-scrollbar { width: 4px; }
+.panel-controls::-webkit-scrollbar-track { background: transparent; }
+.panel-controls::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+/* ── Cards ──────────────────────────────────────────────────────────────────── */
 .card {
-  background: var(--surface);
+  background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px 14px 12px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 9px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.card:focus-within {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .card h2 {
-  font-size: 0.68rem;
-  font-weight: 600;
+  font-size: 0.65rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--text-muted);
-  margin-bottom: 3px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 2px;
 }
 
+/* ── Labels ─────────────────────────────────────────────────────────────────── */
 label {
   font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-top: 3px;
+  font-weight: 500;
+  color: var(--text-soft);
+  margin-top: 4px;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
+/* ── Inputs ─────────────────────────────────────────────────────────────────── */
 input[type="text"],
 input[type="url"],
 input[type="number"] {
   width: 100%;
-  background: var(--surface2);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  padding: 8px 11px;
   color: var(--text);
   font-family: var(--font);
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
 }
 
 input:focus {
-  border-color: var(--accent);
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  background: var(--surface);
 }
 
 input::placeholder {
   color: var(--text-muted);
-  opacity: 0.55;
+  opacity: 0.6;
 }
 
+/* ── Hint ───────────────────────────────────────────────────────────────────── */
 .hint {
-  font-size: 0.72rem;
+  font-size: 0.71rem;
   color: var(--text-muted);
-  opacity: 0.75;
-  line-height: 1.4;
+  line-height: 1.5;
+  padding: 8px 10px;
+  background: var(--surface3);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--border);
 }
 
 .hint code {
-  background: var(--surface2);
-  padding: 1px 4px;
-  border-radius: 3px;
-  font-size: 0.7rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  color: var(--accent);
+  font-family: "Courier New", monospace;
 }
 
+/* ── Badge ──────────────────────────────────────────────────────────────────── */
 .badge {
-  background: var(--surface2);
+  background: var(--surface3);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1px 6px;
-  font-size: 0.62rem;
+  border-radius: 20px;
+  padding: 1px 8px;
+  font-size: 0.6rem;
   color: var(--text-muted);
   text-transform: lowercase;
-  letter-spacing: 0;
-  font-weight: 400;
+  font-weight: 500;
 }
 
-/* Botón principal */
+/* ── Botón Extraer ──────────────────────────────────────────────────────────── */
 #btnExtraer {
   background: var(--accent);
   color: #fff;
   border: none;
   border-radius: var(--radius);
   padding: 11px 0;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 600;
   font-family: var(--font);
   cursor: pointer;
-  transition: background 0.2s, opacity 0.2s;
+  transition: background var(--transition), transform 0.1s, box-shadow var(--transition);
   width: 100%;
-  margin-top: 2px;
   flex-shrink: 0;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 12px rgba(79, 124, 255, 0.35);
 }
 
 #btnExtraer:hover:not(:disabled) {
   background: var(--accent-hover);
+  box-shadow: 0 4px 18px rgba(79, 124, 255, 0.45);
+  transform: translateY(-1px);
+}
+
+#btnExtraer:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 #btnExtraer:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
-/* ── Barra de progreso ───────────────────────── */
+/* ── Barra de progreso ──────────────────────────────────────────────────────── */
 .progreso {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 }
 
 .progreso.hidden {
@@ -211,36 +311,37 @@ input::placeholder {
 }
 
 .progreso-bar {
-  height: 5px;
-  background: var(--surface2);
+  height: 6px;
+  background: var(--surface3);
   border-radius: 99px;
   overflow: hidden;
-  border: 1px solid var(--border);
 }
 
 .progreso-fill {
   height: 100%;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
   border-radius: 99px;
   width: 0%;
   transition: width 0.4s ease;
 }
 
 #progresoTexto {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   text-align: center;
+  font-weight: 500;
 }
 
-/* ── Panel derecho — resultado ───────────────── */
+/* ── Panel derecho — resultado ──────────────────────────────────────────────── */
 .panel-resultado {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 16px 20px 20px;
-  gap: 10px;
+  padding: 20px 24px 24px;
+  gap: 12px;
   overflow: hidden;
   min-width: 0;
+  background: var(--bg);
 }
 
 .resultado-header {
@@ -251,13 +352,14 @@ input::placeholder {
 }
 
 .resultado-header h2 {
-  font-size: 0.68rem;
-  font-weight: 600;
+  font-size: 0.65rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.1em;
   color: var(--text-muted);
 }
 
+/* ── Acciones (copiar / descargar) ──────────────────────────────────────────── */
 .acciones {
   display: flex;
   gap: 8px;
@@ -265,21 +367,22 @@ input::placeholder {
 
 .acciones button {
   background: var(--surface);
-  color: var(--text);
+  color: var(--text-soft);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  padding: 6px 16px;
   font-family: var(--font);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  transition: background var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition);
 }
 
 .acciones button:hover:not(:disabled) {
-  background: var(--surface2);
+  background: var(--accent-soft);
   border-color: var(--accent);
-  color: var(--accent-hover);
+  color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .acciones button:disabled {
@@ -291,50 +394,79 @@ input::placeholder {
   background: var(--success);
   border-color: var(--success);
   color: #fff;
+  box-shadow: none;
 }
 
+/* ── Textarea resultado ─────────────────────────────────────────────────────── */
 #resultado {
   flex: 1;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px 16px;
+  padding: 16px 18px;
   color: var(--text);
   font-family: "Courier New", monospace;
-  font-size: 0.83rem;
-  line-height: 1.65;
+  font-size: 0.82rem;
+  line-height: 1.7;
   resize: none;
   outline: none;
   width: 100%;
   overflow-y: auto;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+#resultado:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 #resultado::placeholder {
   color: var(--text-muted);
-  opacity: 0.45;
+  opacity: 0.5;
 }
 
-/* ── Footer ──────────────────────────────────── */
+/* scrollbar del textarea */
+#resultado::-webkit-scrollbar { width: 6px; }
+#resultado::-webkit-scrollbar-track { background: transparent; }
+#resultado::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+/* ── Footer ─────────────────────────────────────────────────────────────────── */
 footer {
-  padding: 10px 28px;
+  padding: 12px 24px;
   border-top: 1px solid var(--border);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
   text-align: center;
   flex-shrink: 0;
+  background: var(--surface);
 }
 
 footer a {
   color: var(--accent);
   text-decoration: none;
+  font-weight: 500;
 }
 
 footer a:hover {
   text-decoration: underline;
 }
 
-/* ── Responsive ──────────────────────────────── */
+/* ── Responsive ─────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
+  header {
+    position: static;
+    padding: 12px 16px;
+  }
+
+  header h1 {
+    font-size: 0.95rem;
+  }
+
+  header .subtitle {
+    display: none;
+  }
+
   main.layout {
     flex-direction: column;
     overflow: visible;
@@ -346,14 +478,16 @@ footer a:hover {
     border-right: none;
     border-bottom: 1px solid var(--border);
     overflow: visible;
+    padding: 16px 14px;
   }
 
   .panel-resultado {
-    min-height: 420px;
+    padding: 16px 14px 20px;
+    min-height: 460px;
     overflow: visible;
   }
 
   #resultado {
-    min-height: 300px;
+    min-height: 320px;
   }
 }

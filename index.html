@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scraper de Páginas Web</title>
+    <title>Extractor de texto por páginas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,11 +15,17 @@
   </head>
   <body>
     <header>
-      <div>
-        <h1>Scraper de Páginas Web</h1>
-        <p class="subtitle">Extrae texto de múltiples páginas automáticamente</p>
+      <div class="header-brand">
+        <span class="header-icon">📄</span>
+        <div>
+          <h1>Extractor de texto</h1>
+          <p class="subtitle">Extrae texto de múltiples páginas automáticamente</p>
+        </div>
       </div>
-      <button id="btnTour" onclick="iniciarTour()" title="Ver guía de uso">? Ayuda</button>
+      <div class="header-actions">
+        <button id="btnTema" onclick="toggleTema()" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+        <button id="btnTour" onclick="iniciarTour()" title="Ver guía de uso">✦ Guía</button>
+      </div>
     </header>
 
     <main class="layout">
@@ -149,5 +155,33 @@
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1/dist/driver.js.iife.js"></script>
     <script src="script.js"></script>
     <script src="GuiaDriver.js"></script>
+    <script>
+      // ── Toggle tema claro / oscuro ──────────────────────────────────────────
+      (function () {
+        const guardado = localStorage.getItem('tema');
+        if (guardado === 'light') document.documentElement.setAttribute('data-theme', 'light');
+      })();
+
+      function toggleTema() {
+        const esClaro = document.documentElement.getAttribute('data-theme') === 'light';
+        if (esClaro) {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('tema', 'dark');
+          document.getElementById('btnTema').textContent = '🌙';
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('tema', 'light');
+          document.getElementById('btnTema').textContent = '☀️';
+        }
+      }
+
+      // Sincronizar icono al cargar
+      document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('btnTema');
+        if (document.documentElement.getAttribute('data-theme') === 'light') {
+          btn.textContent = '☀️';
+        }
+      });
+    </script>
   </body>
 </html>
