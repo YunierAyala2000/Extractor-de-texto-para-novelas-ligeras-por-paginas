@@ -11,18 +11,22 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1/dist/driver.css" />
   </head>
   <body>
     <header>
-      <h1>Scraper de Páginas Web</h1>
-      <p class="subtitle">Extrae texto de múltiples páginas automáticamente</p>
+      <div>
+        <h1>Scraper de Páginas Web</h1>
+        <p class="subtitle">Extrae texto de múltiples páginas automáticamente</p>
+      </div>
+      <button id="btnTour" onclick="iniciarTour()" title="Ver guía de uso">? Ayuda</button>
     </header>
 
     <main class="layout">
       <!-- Panel de controles -->
       <aside class="panel-controls">
 
-        <section class="card">
+        <section id="card-url" class="card">
           <h2>URL de inicio</h2>
           <input
             type="url"
@@ -32,7 +36,7 @@
           />
         </section>
 
-        <section class="card">
+        <section id="card-filtro" class="card">
           <h2>Filtro de contenido</h2>
 
           <label for="etiquetaInput">Etiqueta HTML</label>
@@ -64,7 +68,7 @@
           </p>
         </section>
 
-        <section class="card">
+        <section id="card-paginacion" class="card">
           <h2>Paginación</h2>
 
           <label for="numPaginasInput">Número de páginas a extraer</label>
@@ -96,6 +100,7 @@
 
         <button id="btnExtraer" onclick="extraerTexto()">Extraer</button>
 
+
         <div id="progreso" class="progreso hidden">
           <div class="progreso-bar">
             <div id="progresoFill" class="progreso-fill"></div>
@@ -105,7 +110,7 @@
       </aside>
 
       <!-- Panel de resultado -->
-      <section class="panel-resultado">
+      <section id="panel-resultado" class="panel-resultado">
         <div class="resultado-header">
           <h2>Resultado</h2>
           <div class="acciones">
@@ -141,6 +146,8 @@
       </p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1/dist/driver.js.iife.js"></script>
     <script src="script.js"></script>
+    <script src="GuiaDriver.js"></script>
   </body>
 </html>
