@@ -145,9 +145,7 @@ main.layout {
 
 /* ── Panel izquierdo — controles ────────────────────────────────────────────── */
 .panel-controls {
-  width: 320px;
-  min-width: 260px;
-  max-width: 360px;
+  width: 45% !important;
   border-right: 1px solid var(--border);
   padding: 20px 16px;
   overflow-y: auto;
