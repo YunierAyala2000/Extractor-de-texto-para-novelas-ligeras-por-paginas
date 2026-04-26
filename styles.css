@@ -1,0 +1,332 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #22263a;
+  --border: #2e3250;
+  --accent: #4f7cff;
+  --accent-hover: #6b93ff;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --text: #e2e8f0;
+  --text-muted: #8892aa;
+  --radius: 10px;
+  --font: "Inter", sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ──────────────────────────────────── */
+header {
+  padding: 20px 28px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+header h1 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+header .subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* ── Layout principal ────────────────────────── */
+main.layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Panel izquierdo — controles ─────────────── */
+.panel-controls {
+  width: 30%;
+  min-width: 260px;
+  max-width: 380px;
+  border-right: 1px solid var(--border);
+  padding: 16px 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.card h2 {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="number"] {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.83rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  border-color: var(--accent);
+}
+
+input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.55;
+}
+
+.hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
+.hint code {
+  background: var(--surface2);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 0.7rem;
+}
+
+.badge {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  text-transform: lowercase;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+/* Botón principal */
+#btnExtraer {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 11px 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  width: 100%;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+#btnExtraer:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+#btnExtraer:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Barra de progreso ───────────────────────── */
+.progreso {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.progreso.hidden {
+  display: none;
+}
+
+.progreso-bar {
+  height: 5px;
+  background: var(--surface2);
+  border-radius: 99px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.progreso-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 99px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+#progresoTexto {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ── Panel derecho — resultado ───────────────── */
+.panel-resultado {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px 20px;
+  gap: 10px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.resultado-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.resultado-header h2 {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+}
+
+.acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.acciones button {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.acciones button:hover:not(:disabled) {
+  background: var(--surface2);
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+.acciones button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.acciones button.copiado {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+
+#resultado {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  color: var(--text);
+  font-family: "Courier New", monospace;
+  font-size: 0.83rem;
+  line-height: 1.65;
+  resize: none;
+  outline: none;
+  width: 100%;
+  overflow-y: auto;
+}
+
+#resultado::placeholder {
+  color: var(--text-muted);
+  opacity: 0.45;
+}
+
+/* ── Footer ──────────────────────────────────── */
+footer {
+  padding: 10px 28px;
+  border-top: 1px solid var(--border);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 768px) {
+  main.layout {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .panel-controls {
+    width: 100%;
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    overflow: visible;
+  }
+
+  .panel-resultado {
+    min-height: 420px;
+    overflow: visible;
+  }
+
+  #resultado {
+    min-height: 300px;
+  }
+}

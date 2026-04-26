@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scraper de Páginas Web</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Scraper de Páginas Web</h1>
+      <p class="subtitle">Extrae texto de múltiples páginas automáticamente</p>
+    </header>
+
+    <main class="layout">
+      <!-- Panel de controles -->
+      <aside class="panel-controls">
+
+        <section class="card">
+          <h2>URL de inicio</h2>
+          <input
+            type="url"
+            id="urlInput"
+            placeholder="https://ejemplo.com/pagina/1"
+          />
+        </section>
+
+        <section class="card">
+          <h2>Filtro de contenido</h2>
+
+          <label for="etiquetaInput">Etiqueta HTML</label>
+          <input
+            type="text"
+            id="etiquetaInput"
+            placeholder="p, h1, li, article…"
+          />
+
+          <label for="claseInput">Clase CSS</label>
+          <input
+            type="text"
+            id="claseInput"
+            placeholder="article-body, post-title…"
+          />
+
+          <label for="selectorInput">Selector CSS avanzado</label>
+          <input
+            type="text"
+            id="selectorInput"
+            placeholder="#id, .clase, main > p"
+          />
+
+          <p class="hint">
+            Solo se aplica el primero que esté relleno. Si todos están vacíos
+            se extrae todo el <code>&lt;body&gt;</code>.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>Paginación</h2>
+
+          <label for="numPaginasInput">Número de páginas a extraer</label>
+          <input
+            type="number"
+            id="numPaginasInput"
+            min="1"
+            max="100"
+            value="1"
+          />
+
+          <label for="siguienteSelector">
+            Clase CSS o selector del enlace "Siguiente"
+            <span class="badge">opcional</span>
+          </label>
+          <input
+            type="text"
+            id="siguienteSelector"
+            placeholder="next-page  /  a.next  /  text:Siguiente"
+          />
+          <p class="hint">
+            Acepta una <strong>clase CSS</strong> simple (ej: <code>next-page</code>),
+            un <strong>selector CSS</strong> completo (ej: <code>.pagination a.next</code>)
+            o búsqueda por <strong>texto visible</strong> con el prefijo
+            <code>text:</code> (ej: <code>text:Siguiente</code>).
+            Déjalo vacío para detección automática.
+          </p>
+        </section>
+
+        <button id="btnExtraer" onclick="extraerTexto()">Extraer</button>
+
+        <div id="progreso" class="progreso hidden">
+          <div class="progreso-bar">
+            <div id="progresoFill" class="progreso-fill"></div>
+          </div>
+          <p id="progresoTexto">Página 0 / 0</p>
+        </div>
+      </aside>
+
+      <!-- Panel de resultado -->
+      <section class="panel-resultado">
+        <div class="resultado-header">
+          <h2>Resultado</h2>
+          <div class="acciones">
+            <button id="btnCopiar" onclick="copiarTexto()" disabled>
+              Copiar
+            </button>
+            <button id="btnDescargar" onclick="descargarTexto()" disabled>
+              Descargar .txt
+            </button>
+          </div>
+        </div>
+        <textarea
+          id="resultado"
+          placeholder="El texto extraído de cada página aparecerá aquí…"
+          readonly
+        ></textarea>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Desarrollado por <strong>Junier Ayala Perez</strong> ·
+        <a href="mailto:ayalaperezyunier@gmail.com"
+          >ayalaperezyunier@gmail.com</a
+        >
+        ·
+        <a
+          href="https://github.com/YunierAyala2000"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub</a
+        >
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
