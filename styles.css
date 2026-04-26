@@ -110,6 +110,7 @@ header .subtitle {
   flex-shrink: 0;
 }
 
+#btnLang,
 #btnTema,
 #btnTour {
   background: var(--surface2);
@@ -129,6 +130,7 @@ header .subtitle {
   padding: 5px 9px;
 }
 
+#btnLang:hover,
 #btnTema:hover,
 #btnTour:hover {
   background: var(--accent-soft);

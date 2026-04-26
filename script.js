@@ -353,7 +353,9 @@ function actualizarProgreso(paginaActual, total) {
   const pct = total > 0 ? (paginaActual / total) * 100 : 0;
   fill.style.width = `${pct}%`;
   texto.textContent =
-    paginaActual === 0 ? "Iniciando…" : `Página ${paginaActual} de ${total}`;
+    paginaActual === 0
+      ? t("progresoIniciando")
+      : t("progresoTexto", paginaActual, total);
 }
 
 // ── Función principal ─────────────────────────────────────────────────────────
@@ -374,16 +376,14 @@ async function extraerTexto() {
     .value.trim();
 
   if (!url) {
-    alert("Ingresa una URL válida.");
+    alert(t("alertUrlVacia"));
     return;
   }
 
   try {
     new URL(url);
   } catch {
-    alert(
-      "La URL ingresada no es válida. Asegúrate de incluir http:// o https://",
-    );
+    alert(t("alertUrlInvalida"));
     return;
   }
 
@@ -394,7 +394,7 @@ async function extraerTexto() {
   const resultadoEl = document.getElementById("resultado");
 
   // Preparar UI
-  btnExtraer.textContent = "Extrayendo…";
+  btnExtraer.textContent = t("btnExtrayendo");
   btnExtraer.disabled = true;
   btnCopiar.disabled = true;
   btnDescargar.disabled = true;
@@ -435,9 +435,7 @@ async function extraerTexto() {
           }
         }
         if (!texto) {
-          alert(
-            `No se pudo obtener la página ${pagina}.\nTodos los proxies y Jina fallaron.`,
-          );
+          alert(t("alertProxyFallo", pagina));
           break;
         }
       } else {
@@ -455,27 +453,24 @@ async function extraerTexto() {
             doc = parser.parseFromString(html, "text/html");
             texto = extraerTextoDePagina(doc, etiqueta, clase, selector) || "";
           } catch (err) {
-            const mensaje = `No se pudo obtener la página ${pagina}.\nJina y todos los proxies fallaron.\n\n${err.message}`;
-            alert(mensaje);
+            alert(t("alertProxyFalloDetalle", pagina, err.message));
             break;
           }
         }
       }
 
       if (texto && texto.length > 0) {
-        const encabezado = `${"═".repeat(50)}\n  PÁGINA ${pagina}\n${"═".repeat(50)}\n`;
+        const encabezado = `${"=".repeat(50)}\n  ${t("paginaEncabezado", pagina)}\n${"=".repeat(50)}\n`;
         bloques.push(encabezado + texto);
       } else {
         const tipoFiltro = etiqueta
-          ? `etiqueta <${etiqueta}>`
+          ? `${t("tipoEtiqueta")} <${etiqueta}>`
           : clase
-            ? `clase .${clase}`
+            ? `${t("tipoClase")} .${clase}`
             : selector
-              ? `selector "${selector}"`
+              ? `${t("tipoSelector")} "${selector}"`
               : "<body>";
-        bloques.push(
-          `[Página ${pagina}: no se encontró contenido con el filtro ${tipoFiltro}]\nURL: ${urlActual}`,
-        );
+        bloques.push(t("errorFiltro", pagina, tipoFiltro, urlActual));
       }
 
       // Actualizar textarea en tiempo real
@@ -526,11 +521,7 @@ async function extraerTexto() {
           nextUrl = encontrarSiguientePagina(doc, urlActual, siguienteSelector);
         }
         if (!nextUrl) {
-          alert(
-            `No se encontró el enlace a la siguiente página al terminar la página ${pagina}.\n` +
-              `Se detiene la extracción con ${pagina} página(s) obtenida(s).\n\n` +
-              `Consejo: usa el campo "Clase CSS o selector del enlace Siguiente" para indicar el selector CSS exacto del botón de paginación.`,
-          );
+          alert(t("alertSiguienteNoEncontrado", pagina));
           break;
         }
         urlActual = nextUrl;
@@ -543,7 +534,7 @@ async function extraerTexto() {
       btnDescargar.disabled = false;
     }
   } finally {
-    btnExtraer.textContent = "Extraer";
+    btnExtraer.textContent = t("btnExtraer");
     btnExtraer.disabled = false;
     actualizarProgreso(numPaginas, numPaginas);
   }
@@ -557,14 +548,14 @@ async function copiarTexto() {
   try {
     await navigator.clipboard.writeText(texto);
     const btn = document.getElementById("btnCopiar");
-    btn.textContent = "¡Copiado!";
+    btn.textContent = t("btnCopiado");
     btn.classList.add("copiado");
     setTimeout(() => {
-      btn.textContent = "Copiar";
+      btn.textContent = t("btnCopiar");
       btn.classList.remove("copiado");
     }, 2000);
   } catch {
-    alert("No se pudo copiar al portapapeles.");
+    alert(t("alertCopiarFallo"));
   }
 }
 
@@ -572,7 +563,7 @@ async function copiarTexto() {
 function descargarTexto() {
   const texto = document.getElementById("resultado").value;
   if (!texto) {
-    alert("No hay texto para descargar. Extrae primero el contenido.");
+    alert(t("alertDescargaSinTexto"));
     return;
   }
   const blob = new Blob([texto], { type: "text/plain;charset=utf-8" });

@@ -18,13 +18,14 @@
       <div class="header-brand">
         <span class="header-icon">📄</span>
         <div>
-          <h1>Extractor de texto</h1>
-          <p class="subtitle">Extrae texto de múltiples páginas automáticamente</p>
+          <h1 data-i18n="h1">Extractor de texto</h1>
+          <p class="subtitle" data-i18n="subtitle">Extrae texto de múltiples páginas automáticamente</p>
         </div>
       </div>
       <div class="header-actions">
-        <button id="btnTema" onclick="toggleTema()" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
-        <button id="btnTour" onclick="iniciarTour()" title="Ver guía de uso">✦ Guía</button>
+        <button id="btnLang" onclick="toggleLang()" title="Switch to English">EN</button>
+        <button id="btnTema" onclick="toggleTema()" data-i18n-title="btnTemaTitle" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+        <button id="btnTour" onclick="iniciarTour()" data-i18n="btnTourLabel" data-i18n-title="btnTourTitle" title="Ver guía de uso">✦ Guía</button>
       </div>
     </header>
 
@@ -33,7 +34,7 @@
       <aside class="panel-controls">
 
         <section id="card-url" class="card">
-          <h2>URL de inicio</h2>
+          <h2 data-i18n="cardUrl">URL de inicio</h2>
           <input
             type="url"
             id="urlInput"
@@ -43,11 +44,11 @@
         </section>
 
         <section id="card-filtro" class="card">
-          <h2>Filtro de contenido</h2>
+          <h2 data-i18n="cardFiltro">Filtro de contenido</h2>
 
           <div class="filtro-fila">
             <div class="filtro-campo">
-              <label for="etiquetaInput">Etiqueta HTML</label>
+              <label for="etiquetaInput" data-i18n="labelEtiqueta">Etiqueta HTML</label>
               <input
                 type="text"
                 id="etiquetaInput"
@@ -56,7 +57,7 @@
               />
             </div>
             <div class="filtro-campo">
-              <label for="claseInput">Clase CSS</label>
+              <label for="claseInput" data-i18n="labelClase">Clase CSS</label>
               <input
                 type="text"
                 id="claseInput"
@@ -65,7 +66,7 @@
               />
             </div>
             <div class="filtro-campo">
-              <label for="selectorInput">Selector avanzado</label>
+              <label for="selectorInput" data-i18n="labelSelector">Selector avanzado</label>
               <input
                 type="text"
                 id="selectorInput"
@@ -74,18 +75,18 @@
             </div>
           </div>
 
-          <p class="hint">
+          <p class="hint" data-i18n-html="hintFiltro">
             Solo se aplica el primero que esté relleno. Si todos están vacíos
             se extrae todo el <code>&lt;body&gt;</code>.
           </p>
         </section>
 
         <section id="card-paginacion" class="card">
-          <h2>Paginación</h2>
+          <h2 data-i18n="cardPaginacion">Paginación</h2>
 
           <div class="filtro-fila">
             <div class="filtro-campo">
-              <label for="numPaginasInput">Número de páginas a extraer</label>
+              <label for="numPaginasInput" data-i18n="labelNumPaginas">Número de páginas a extraer</label>
               <input
                 type="number"
                 id="numPaginasInput"
@@ -97,9 +98,9 @@
 
              <div class="filtro-campo">
               <label for="siguienteSelector">
-                          Clase CSS o enlace "Siguiente"
-                          <span class="badge">opcional</span>
-                        </label>
+                <span data-i18n="labelSiguiente">Clase CSS o selector del enlace "Siguiente"</span>
+                <span class="badge" data-i18n="badgeOpcional">opcional</span>
+              </label>
                         <input
                           type="text"
                           id="siguienteSelector"
@@ -109,7 +110,7 @@
           </div>
 
          
-          <p class="hint">
+          <p class="hint" data-i18n-html="hintPaginacion">
             Acepta una <strong>clase CSS</strong> simple (ej: <code>next-page</code>),
             un <strong>selector CSS</strong> completo (ej: <code>.pagination a.next</code>)
             o búsqueda por <strong>texto visible</strong> con el prefijo
@@ -118,7 +119,7 @@
           </p>
         </section>
 
-        <button id="btnExtraer" onclick="extraerTexto()">Extraer</button>
+        <button id="btnExtraer" onclick="extraerTexto()" data-i18n="btnExtraer">Extraer</button>
 
 
         <div id="progreso" class="progreso hidden">
@@ -132,18 +133,15 @@
       <!-- Panel de resultado -->
       <section id="panel-resultado" class="panel-resultado">
         <div class="resultado-header">
-          <h2>Resultado</h2>
+          <h2 data-i18n="labelResultado">Resultado</h2>
           <div class="acciones">
-            <button id="btnCopiar" onclick="copiarTexto()" disabled>
-              Copiar
-            </button>
-            <button id="btnDescargar" onclick="descargarTexto()" disabled>
-              Descargar .txt
-            </button>
+            <button id="btnCopiar" onclick="copiarTexto()" data-i18n="btnCopiar" disabled>Copiar</button>
+            <button id="btnDescargar" onclick="descargarTexto()" data-i18n="btnDescargar" disabled>Descargar .txt</button>
           </div>
         </div>
         <textarea
           id="resultado"
+          data-i18n-placeholder="placeholderResultado"
           placeholder="El texto extraído de cada página aparecerá aquí…"
           readonly
         ></textarea>
@@ -167,6 +165,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1/dist/driver.js.iife.js"></script>
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
     <script src="GuiaDriver.js"></script>
     <script>
